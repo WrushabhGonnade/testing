@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/WrushabhGonnade/testing.git']
+- name: 'gcr.io/cloud-builders/git'
+  args: ['checkout', '$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/octo'
+  args:
+  - 'create-release'
+  - '--server=https://wrushu.octopus.app'
+  - '--apikey=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB'
+  - '--project=Hello World'
+  - '--releaseVersion=$COMMIT_SHA'
+  - '--releaseNotes="$(git log -1 --pretty=%B)"'
