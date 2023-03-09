@@ -3,7 +3,7 @@ steps:
   args: ['clone', 'https://github.com/WrushabhGonnade/testing.git']
 - name: 'gcr.io/cloud-builders/git'
   args: ['checkout', '$COMMIT_SHA']
-- name: 'gcr.io/cloud-builders/octo'
+- name: 'gcr.io/cloud-builders/octo:v1.1.25'
   args:
   - 'create-release'
   - '--server=https://wrushu.octopus.app'
