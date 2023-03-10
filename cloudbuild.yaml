@@ -1,10 +1,7 @@
-steps:
-- name: 'gcr.io/cloud-builders/bash'
+- name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:
   - '-c'
   - |
-    COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
-    echo "Git commit message: $COMMIT_MESSAGE"
-substitutions:
-  _COMMIT_MESSAGE: ${_COMMIT_MESSAGE}
+    COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+    echo "Commit Message: $COMMIT_MESSAGE"
