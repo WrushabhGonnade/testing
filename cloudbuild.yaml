@@ -7,4 +7,4 @@ steps:
         OUTPUT=$(echo "Hello, world!")
         echo "Output is: $OUTPUT"
 substitutions:
-  _MY_VARIABLE: $(echo $${OUTPUT})
+  _MY_VARIABLE: $(OUTPUT)
