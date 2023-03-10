@@ -13,5 +13,5 @@ steps:
     args:
       - '-c'
       - |
-        octo create-release --server https://wrushu.octopus.app --apikey API-FURAOUECZ3M6VELG044KJRRZB9VFYPB --project Hello World --version 2020.1.18 --releaseNotes "$COMMIT_MSG"
+        octo create-release --server https://wrushu.octopus.app --apikey API-FURAOUECZ3M6VELG044KJRRZB9VFYPB --project Hello World --version 2020.1.18 --releaseNotes "$$COMMIT_MSG"
 
