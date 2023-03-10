@@ -5,4 +5,5 @@ steps:
   args:
   - '-c'
   - |
-    git log -1 --pretty=format:"%s"
+    COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+    echo "Latest commit message: $COMMIT_MESSAGE"
