@@ -1,10 +1,12 @@
+
 steps:
-  - name: 'gcr.io/cloud-builders/bash'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        OUTPUT=$(echo "Hello, world!")
-        echo "Output is: $OUTPUT"
-substitutions:
-  _MY_VARIABLE: $(OUTPUT)
+- name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    git log -1 --pretty=format:"%s"
+#     echo "Latest commit message: $COMMIT_MESSAGE"
+    
+# substitutions:
+#   _MY_COMMIT_MESSAGE: COMMIT_MESSAGE
