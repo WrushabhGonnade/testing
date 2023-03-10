@@ -1,32 +1,8 @@
-# steps:
-#   - name: 'ubuntu'
-#       entrypoint: 'bash'
-#       args:
-#         - '-c'
-#         - 'apt-get update && apt-get install -y jq'
-#   # Fetch commit message from GitHub API
-#   - name: 'gcr.io/cloud-builders/gcloud'
-#     entrypoint: 'bash'
-#     args:
-#       - '-c'
-#       - |
-#         export COMMIT_MSG=$(curl -sH "Authorization: token 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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$(git rev-parse HEAD) | jq -r '.commit.message')
-       
 steps:
-- name: 'gcr.io/cloud-builders/git'
+- name: 'gcr.io/cloud-builders/bash'
   entrypoint: 'bash'
   args:
   - '-c'
   - |
     COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
-    echo "Commit message: $COMMIT_MESSAGE"
-    
-
-
-
-
-
-
-
-
-
+    echo "Git commit message: $COMMIT_MESSAGE"
