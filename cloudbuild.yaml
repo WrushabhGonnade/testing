@@ -7,8 +7,12 @@ steps:
   args:
   - '-c'
   - |
-    COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+    export COMMIT_MSG=$(git log -1 --pretty=%B)
     echo "Commit Message: $COMMIT_MESSAGE"
+    
+    
+   
+
 
 
 
