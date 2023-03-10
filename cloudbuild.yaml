@@ -11,7 +11,8 @@
 #       - '-c'
 #       - |
 #         export COMMIT_MSG=$(curl -sH "Authorization: token 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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$(git rev-parse HEAD) | jq -r '.commit.message')
-        
+substitutions:
+  COMMIT_MSG: $COMMIT_MSG        
 steps:
 - name: 'gcr.io/cloud-builders/curl'
   entrypoint: /bin/sh
@@ -21,8 +22,7 @@ steps:
     COMMIT_MSG=$(curl -sH "Authorization: token $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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$COMMIT_SHA | jq -r '.commit.message')
     echo "Commit message: $COMMIT_MSG"
     
-substitutions:
-  COMMIT_MSG: $COMMIT_MSG
+
 
 
 
