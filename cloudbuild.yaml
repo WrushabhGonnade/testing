@@ -5,6 +5,7 @@
 #         - '-c'
 #         - 'apt-get update && apt-get install -y jq'
   # Fetch commit message from GitHub API
+steps:  
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
