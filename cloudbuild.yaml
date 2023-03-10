@@ -1,17 +1,16 @@
-steps:  
-  - name: 'gcr.io/cloud-builders/git'
+
+steps:
+  - name: 'ubuntu'
     entrypoint: 'bash'
     args:
-    - '-c'
-    - |
-      export COMMIT_MSG=$(git log -1 --pretty=%B)
-      echo "Commit Message: $COMMIT_MESSAGE"
-    
-   
-
-
-
-
-
+      - '-c'
+      - 'apt-get update && apt-get install -y jq'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        export COMMIT_MSG=$(curl -sH "Authorization: token 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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$(git rev-parse HEAD) | jq -r '.commit.message')
+       
 
 
