@@ -1,33 +1,31 @@
+# steps:
+#   - name: 'ubuntu'
+#       entrypoint: 'bash'
+#       args:
+#         - '-c'
+#         - 'apt-get update && apt-get install -y jq'
+#   # Fetch commit message from GitHub API
+#   - name: 'gcr.io/cloud-builders/gcloud'
+#     entrypoint: 'bash'
+#     args:
+#       - '-c'
+#       - |
+#         export COMMIT_MSG=$(curl -sH "Authorization: token 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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$(git rev-parse HEAD) | jq -r '.commit.message')
+        
 steps:
   - name: 'ubuntu'
-      entrypoint: 'bash'
-      args:
-        - '-c'
-        - 'apt-get update && apt-get install -y jq'
-  # Fetch commit message from GitHub API
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'apt-get update && apt-get install -y jq'
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
         export COMMIT_MSG=$(curl -sH "Authorization: token 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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$(git rev-parse HEAD) | jq -r '.commit.message')
-        
-#   # Create a new release in Octopus Deploy
-#   - name: 'octopusdeploy/octo:latest'
-#     entrypoint: 'bash'
-#     args:
-#       - '-c'
-#       - |
-#         octo create-release --server https://wrushu.octopus.app --apikey API-FURAOUECZ3M6VELG044KJRRZB9VFYPB --project Hello World --version 2020.1.18 --releaseNotes "$$COMMIT_MSG"
-# substitutions:
-#   _COMMIT_MSG: $(curl -H "Authorization: token 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" https://api.github.com/repos/WrushabhGonnade/testing/commits/$COMMIT_SHA | jq -r '.commit.message')        
-# steps:
-#   - name: 'octopusdeploy/octo:latest'
-#     entrypoint: 'bash'
-#     args:
-#       - '-c'
-#       - |
-#         octo create-release --server https://wrushu.octopus.app --apikey API-FURAOUECZ3M6VELG044KJRRZB9VFYP --project Hello World --version $COMMIT_SHA --releaseNotes "$_COMMIT_MSG"
+
+
 
 
 
