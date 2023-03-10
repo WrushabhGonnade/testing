@@ -5,8 +5,8 @@ steps:
   args:
   - '-c'
   - |
-    git log -1 --pretty=format:"%s"
-#     echo "Latest commit message: $COMMIT_MESSAGE"
+    temp=git log -1 --pretty=format:"%s"
+    echo "Latest commit message: $temp"
     
 # substitutions:
 #   _MY_COMMIT_MESSAGE: COMMIT_MESSAGE
