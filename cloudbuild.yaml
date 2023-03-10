@@ -9,4 +9,4 @@ steps:
     echo "Latest commit message: $commit_message"
     
 # substitutions:
-#   _MY_COMMIT_MESSAGE: COMMIT_MESSAGE
+#   _MY_COMMIT_MESSAGE: COMMIT_MESSAGE, test
