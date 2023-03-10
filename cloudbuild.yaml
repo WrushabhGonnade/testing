@@ -7,3 +7,6 @@ steps:
   - |
     COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
     echo "Latest commit message: $COMMIT_MESSAGE"
+    
+substitutions:
+  _MY_COMMIT_MESSAGE: COMMIT_MESSAGE
