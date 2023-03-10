@@ -1,11 +1,12 @@
 # steps:
-#   - name: 'ubuntu'
-#       entrypoint: 'bash'
-#       args:
-#         - '-c'
-#         - 'apt-get update && apt-get install -y jq'
+
   # Fetch commit message from GitHub API
 steps:  
+  - name: 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'apt-get update && apt-get install -y jq'
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
