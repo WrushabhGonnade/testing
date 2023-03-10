@@ -1,15 +1,11 @@
-# steps:
-
-  # Fetch commit message from GitHub API
 steps:  
-- name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    export COMMIT_MSG=$(git log -1 --pretty=%B)
-    echo "Commit Message: $COMMIT_MESSAGE"
-    
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      export COMMIT_MSG=$(git log -1 --pretty=%B)
+      echo "Commit Message: $COMMIT_MESSAGE"
     
    
 
