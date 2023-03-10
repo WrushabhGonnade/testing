@@ -22,7 +22,7 @@ steps:
     echo "Commit message: $COMMIT_MSG"
     
 substitutions:
-    COMMIT_MSG: $COMMIT_MSG
+  COMMIT_MSG: $COMMIT_MSG
 
 
 
