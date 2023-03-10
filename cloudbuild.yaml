@@ -6,3 +6,5 @@ steps:
   - |
     COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
     echo "Git commit message: $COMMIT_MESSAGE"
+substitutions:
+  _COMMIT_MESSAGE: ${_COMMIT_MESSAGE}
