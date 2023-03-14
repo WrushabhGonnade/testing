@@ -25,7 +25,7 @@
 steps:
   # Step 1: Checkout the code from GitHub
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/testing.git']
+    args: ['clone', 'https://github.com/WrushabhGonnade/testing.git']
   # Step 2: Authenticate with Octopus Deploy
   - name: 'gcr.io/projects-2/octopus-cli:latest'
     entrypoint: 'sh'
