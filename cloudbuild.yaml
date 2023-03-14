@@ -23,14 +23,11 @@
 #       OCTOPUS_PROJECT_ID: 'Projects-2'
 #       OCTOPUS_PROJECT_NAME: 'Hello World'
 steps:
-  # Step 1: Checkout the code from GitHub
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/WrushabhGonnade/testing.git']
-  # Step 2: Authenticate with Octopus Deploy
-  - name: 'gcr.io/projects-2/octopus-cli:latest'
-    entrypoint: 'sh'
+  # Step 1: Authenticate with Octopus Deploy
+  - name: 'google/cloud-sdk'
+    entrypoint: 'gcloud'
     args:
-      - '-c'
-      - 'octo authenticate --server https://wrushu.octopus.app --apiKey API-FURAOUECZ3M6VELG044KJRRZB9VFYPB'
+      - 'auth'
+      - 'configure-docker'
 
 
