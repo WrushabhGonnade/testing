@@ -29,5 +29,11 @@ steps:
     args:
       - 'auth'
       - 'configure-docker'
+  # Step 2: Create a new version in Octopus Deploy
+  - name: 'docker'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.20'
 
 
