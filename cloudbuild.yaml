@@ -1,14 +1,12 @@
 steps:
-  # Step 1: Generate a value and set it as an environment variable
+  # Step 1: Generate a value and save it to a file
   - name: 'gcr.io/cloud-builders/bash'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
         MY_VALUE=$(echo "Hello, World!")
-        echo "MY_VALUE=$MY_VALUE" >> ${_OUTPUTS_DIR}/my-env-vars.env
-    env:
-      - 'MY_VALUE=unset'
+        echo "MY_VALUE=$MY_VALUE" > my-vars.env
 
   # Step 2: Use the generated value from Step 1
   - name: 'gcr.io/cloud-builders/bash'
@@ -16,17 +14,9 @@ steps:
     args:
       - '-c'
       - |
-        source ${_INPUTS_DIR}/my-env-vars.env
-        echo "The value of MY_VALUE is: $MY_VALUE"
-    volumes:
-      - name: 'my-env-vars'
-        path: '/workspace'
-    env:
-      - 'MY_VALUE=unset'
-    waitFor:
-      - '-'
+        echo "The value of MY_VALUE is: ${MY_VALUE}"
+    substitutions:
+      MY_VALUE: '${_DATETIME}'
 
 options:
-  volumes:
-    - name: 'my-env-vars'
-      path: '/workspace'
+  substitutionOption: ALLOW_LOOSE
