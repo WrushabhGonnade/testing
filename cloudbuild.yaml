@@ -14,7 +14,7 @@
 steps:
   - name: 'Send release notes to Octopus Deploy'
     id: 'send-to-octopus'
-    entrypoint: 'curl'
+    entrypoint: ['curl']
     args: ['-X', 'POST', '-H', 'X-Octopus-ApiKey: ${OCTOPUS_API_KEY}', '-H', 'Content-Type: application/json', '-d', '{"Version": "${VERSION_NUMBER}", "ReleaseNotes": "${RELEASE_NOTES}", "ProjectId": "${OCTOPUS_PROJECT_ID}", "ProjectName": "${OCTOPUS_PROJECT_NAME}"}', 'https://your-octopus-url/api/releases']
     env:
       OCTOPUS_API_KEY: 'API-FURAOUECZ3M6VELG044KJRRZB9VFYPB'
