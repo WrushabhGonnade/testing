@@ -7,6 +7,9 @@ steps:
       - |
         MY_VALUE=$(echo "Hello, World!")
         echo "MY_VALUE=$MY_VALUE" > my-vars.env
+    id: generate-value
+    env:
+      - MY_VALUE=$MY_VALUE
 
   # Step 2: Use the generated value from Step 1
   - name: 'gcr.io/cloud-builders/bash'
@@ -15,8 +18,9 @@ steps:
       - '-c'
       - |
         echo "The value of MY_VALUE is: ${MY_VALUE}"
-    substitutions:
-      MY_VALUE: '${_DATETIME}'
+    id: use-value
+    env:
+      - MY_VALUE=$MY_VALUE
 
 options:
   substitutionOption: ALLOW_LOOSE
