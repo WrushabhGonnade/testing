@@ -1,26 +1,21 @@
 steps:
-  # Step 1: Generate a value and save it to a file
-  - name: 'gcr.io/cloud-builders/bash'
+  - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'bash'
     args:
-      - '-c'
-      - |
-        MY_VALUE=$(echo "Hello, World!")
-        echo "MY_VALUE=$MY_VALUE" > my-vars.env
-    id: generate-value
-    env:
-      - MY_VALUE=$MY_VALUE
-
-  # Step 2: Use the generated value from Step 1
-  - name: 'gcr.io/cloud-builders/bash'
-    entrypoint: 'bash'
+    - '-c'
+    - |
+      commit_message=$(git log -1 --pretty=format:"%s")
+      echo "Latest commit message: $commit_message"
+    
+  # Step 1: Authenticate with Octopus Deploy
+  - name: 'google/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'auth'
+      - 'configure-docker'
+  # Step 2: Create a new version in Octopus Deploy
+  - name: 'docker'
+    entrypoint: 'sh'
     args:
       - '-c'
-      - |
-        echo "The value of MY_VALUE is: ${MY_VALUE}"
-    id: use-value
-    env:
-      - MY_VALUE=$MY_VALUE
-
-options:
-  substitutionOption: ALLOW_LOOSE
+      - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.31 --releaseNotes="cbjhdbcjhdc"'
