@@ -1,21 +1,32 @@
 steps:
-  - name: 'gcr.io/cloud-builders/git'
+  # Step 1: Generate a value and set it as an environment variable
+  - name: 'gcr.io/cloud-builders/bash'
     entrypoint: 'bash'
     args:
-    - '-c'
-    - |
-      commit_message=$(git log -1 --pretty=format:"%s")
-      echo "Latest commit message: $commit_message"
-    
-  # Step 1: Authenticate with Octopus Deploy
-  - name: 'google/cloud-sdk'
-    entrypoint: 'gcloud'
-    args:
-      - 'auth'
-      - 'configure-docker'
-  # Step 2: Create a new version in Octopus Deploy
-  - name: 'docker'
-    entrypoint: 'sh'
+      - '-c'
+      - |
+        MY_VALUE=$(echo "Hello, World!")
+        echo "MY_VALUE=$MY_VALUE" >> ${_OUTPUTS_DIR}/my-env-vars.env
+    env:
+      - 'MY_VALUE=unset'
+
+  # Step 2: Use the generated value from Step 1
+  - name: 'gcr.io/cloud-builders/bash'
+    entrypoint: 'bash'
     args:
       - '-c'
-      - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.30 --releaseNotes="Hella"'
+      - |
+        source ${_INPUTS_DIR}/my-env-vars.env
+        echo "The value of MY_VALUE is: $MY_VALUE"
+    volumes:
+      - name: 'my-env-vars'
+        path: '/workspace'
+    env:
+      - 'MY_VALUE=unset'
+    waitFor:
+      - '-'
+
+options:
+  volumes:
+    - name: 'my-env-vars'
+      path: '/workspace'
