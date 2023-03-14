@@ -4,7 +4,7 @@ steps:
     args:
     - '-c'
     - |
-       export commit_message=$(git log -1 --pretty=format:"%s")
+      export commit_message=$(git log -1 --pretty=format:"%s")
       echo "Latest commit message: $commit_message"
       env | grep "^build_" > /workspace/build_vars
     
