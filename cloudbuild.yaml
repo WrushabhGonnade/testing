@@ -6,7 +6,7 @@ steps:
     - |
       export commit_message=$(git log -1 --pretty=format:"%s")
       echo "Latest commit message: $commit_message"
-      env | grep "^build_" > /workspace/build_vars
+#       env | grep "^build_" > /workspace/build_vars
     
   # Step 1: Authenticate with Octopus Deploy
   - name: 'google/cloud-sdk'
