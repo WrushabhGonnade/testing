@@ -1,22 +1,22 @@
 steps:
 - id: "Store Values"
-  name: 'gcr.io/cloud-builders/git'
+  name: ubuntu
   entrypoint: bash
   args:
     - -c
     - |
-      commit_message=$(git log -1 --pretty=format:"%s")
-      echo "Latest commit message: $commit_message"
-    
-#   # Step 1: Authenticate with Octopus Deploy
-#   - name: 'google/cloud-sdk'
-#     entrypoint: 'gcloud'
-#     args:
-#       - 'auth'
-#       - 'configure-docker'
-#   # Step 2: Create a new version in Octopus Deploy
-#   - name: 'docker'
-#     entrypoint: 'sh'
-#     args:
-#       - '-c'
-#       - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.35 --releaseNotes="$commit_message"'
+      # Save a value to persistent volume mount: "/workspace"
+      echo "First Value" > /workspace/first.txt &&
+      # Save another
+      expr 1 + 1 > /workspace/second.txt
+# In the next step, everything in the environment is discarded
+# EXCEPT items in "/workspace"
+- id: "Read Values"
+  name: ubuntu
+  entrypoint: bash
+  args:
+    - -c
+    - |
+      # Read from "/workspace"
+      echo "First we saved " $(cat /workspace/first.txt) &&
+      echo "Then we saved " $(cat /workspace/second.txt)
