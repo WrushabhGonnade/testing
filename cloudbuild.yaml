@@ -17,8 +17,8 @@ steps:
 # In the next step, everything in the environment is discarded
 # EXCEPT items in "/workspace"
 - id: "Read Values"
-  name: ubuntu
-  entrypoint: bash
+  name: 'docker'
+  entrypoint: 'sh'
   args:
     - '-c'
     - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.38 --releaseNotes=$(cat /workspace/first.txt)' 
