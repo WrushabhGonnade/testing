@@ -6,7 +6,8 @@ steps:
     - -c
     - |
       # Save a value to persistent volume mount: "/workspace"
-      echo "git log -1 --pretty=format:"%s"" > /workspace/first.txt &&
+      commit_message=$(git log -1 --pretty=format:"%s")
+      echo "$commit_message" > /workspace/first.txt &&
       # Save another
       expr 1 + 1 > /workspace/second.txt
 # In the next step, everything in the environment is discarded
