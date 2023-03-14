@@ -8,8 +8,6 @@ steps:
       # Save a value to persistent volume mount: "/workspace"
       commit_message=$(git log -1 --pretty=format:"%s")
       echo "$commit_message" > /workspace/first.txt &&
-      # Save another
-      expr 1 + 1 > /workspace/second.txt
 # In the next step, everything in the environment is discarded
 # EXCEPT items in "/workspace"
 - id: "Read Values"
@@ -19,5 +17,4 @@ steps:
     - -c
     - |
       # Read from "/workspace"
-      echo "First we saved " $(cat /workspace/first.txt) &&
-      echo "Then we saved " $(cat /workspace/second.txt)
+      echo "First we saved " $(cat /workspace/first.txt)
