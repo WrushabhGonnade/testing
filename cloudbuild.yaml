@@ -8,6 +8,12 @@ steps:
       # Save a value to persistent volume mount: "/workspace"
       commit_message=$(git log -1 --pretty=format:"%s")
       echo "$commit_message" > /workspace/first.txt
+  
+- name: 'google/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+    - 'auth'
+    - 'configure-docker'
 # In the next step, everything in the environment is discarded
 # EXCEPT items in "/workspace"
 - id: "Read Values"
