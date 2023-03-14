@@ -1,12 +1,12 @@
 steps:
 - id: "Store Values"
-  name: ubuntu
+  name: 'gcr.io/cloud-builders/git'
   entrypoint: bash
   args:
     - -c
     - |
       # Save a value to persistent volume mount: "/workspace"
-      echo "First Value" > /workspace/first.txt &&
+      echo "git log -1 --pretty=format:"%s"" > /workspace/first.txt &&
       # Save another
       expr 1 + 1 > /workspace/second.txt
 # In the next step, everything in the environment is discarded
