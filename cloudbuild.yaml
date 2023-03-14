@@ -1,17 +1,12 @@
-
 steps:
-- name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    commit_message=$(git log -1 --pretty=format:"%s")
-    echo "Latest commit message: $commit_message"
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      commit_message=$(git log -1 --pretty=format:"%s")
+      echo "Latest commit message: $commit_message"
     
-# substitutions:
-#   _MY_COMMIT_MESSAGE: COMMIT_MESSAGE, test
-
-steps:
   # Step 1: Authenticate with Octopus Deploy
   - name: 'google/cloud-sdk'
     entrypoint: 'gcloud'
@@ -23,6 +18,4 @@ steps:
     entrypoint: 'sh'
     args:
       - '-c'
-      - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.22 --releaseNotes="$commit_messag"'
-
-
+      - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.23 --releaseNotes="$commit_messag"'
