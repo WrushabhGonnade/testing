@@ -1,21 +1,29 @@
 steps:
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-    - '-c'
+- id: "Store Values"
+  name: gcr.io/cloud-builders/curl
+  entrypoint: /bin/bash
+  args:
+    - -c 
     - |
-      commit_message=$(git log -1 --pretty=format:"%s")
-      echo "Latest commit message: $commit_message"
-    
-  # Step 1: Authenticate with Octopus Deploy
-  - name: 'google/cloud-sdk'
-    entrypoint: 'gcloud'
-    args:
-      - 'auth'
-      - 'configure-docker'
-  # Step 2: Create a new version in Octopus Deploy
-  - name: 'docker'
-    entrypoint: 'sh'
-    args:
-      - '-c'
-      - 'docker run --rm -e OCTOPUS_CLI_SERVER=https://wrushu.octopus.app -e OCTOPUS_CLI_API_KEY=API-FURAOUECZ3M6VELG044KJRRZB9VFYPB octopusdeploy/octo create-release --project=projects-2 --version=2021.1.31 --releaseNotes="cbjhdbcjhdc"'
+      # store multiple values as environment variables
+      # name all values with a common prefix (we'll use "build_")
+      export build_firstname="Robin" &&
+      export build_lastname="Babbage" &&
+      export build_cookie="Snickerdoodle" &&
+      
+      # write all "build_" variables to the persistent volume "/workspace"
+      env | grep "^build_" > /workspace/build_vars
+# move on to the next step; everything in the environment is discarded,
+# EXCEPT items on the "/workspace" mount
+
+- id: "Read Values"
+  name: gcr.io/cloud-builders/git
+  entrypoint: /bin/bash
+  args:
+    - -c
+    - |
+      # Read environment variables from disk
+      source /workspace/build_vars &&
+      
+      # All "build_" values are now available in the environment of this step
+      echo "My name is $build_firstname $build_lastname. My favorite cookie is the $build_cookie."
