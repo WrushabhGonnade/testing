@@ -23,7 +23,11 @@
 #       OCTOPUS_PROJECT_ID: 'Projects-2'
 #       OCTOPUS_PROJECT_NAME: 'Hello World'
 steps:
- - name: 'gcr.io/projects-2/octopus-cli:latest'
+  # Step 1: Checkout the code from GitHub
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/testing.git']
+  # Step 2: Authenticate with Octopus Deploy
+  - name: 'gcr.io/projects-2/octopus-cli:latest'
     entrypoint: 'sh'
     args:
       - '-c'
