@@ -11,15 +11,22 @@
 # substitutions:
 #   _MY_COMMIT_MESSAGE: COMMIT_MESSAGE, test
 
+# steps:
+#   - name: 'Send release notes to Octopus Deploy'
+#     id: 'send-to-octopus'
+#     entrypoint: ['curl']
+#     args: ['-X', 'POST', '-H', 'X-Octopus-ApiKey: ${OCTOPUS_API_KEY}', '-H', 'Content-Type: application/json', '-d', '{"Version": "${VERSION_NUMBER}", "ReleaseNotes": "${RELEASE_NOTES}", "ProjectId": "${OCTOPUS_PROJECT_ID}", "ProjectName": "${OCTOPUS_PROJECT_NAME}"}', 'https://your-octopus-url/api/releases']
+#     env:
+#       OCTOPUS_API_KEY: 'API-FURAOUECZ3M6VELG044KJRRZB9VFYPB'
+#       VERSION_NUMBER: '2021.1.19'
+#       RELEASE_NOTES: 'Release notes for version 2021.1.19'
+#       OCTOPUS_PROJECT_ID: 'Projects-2'
+#       OCTOPUS_PROJECT_NAME: 'Hello World'
 steps:
-  - name: 'Send release notes to Octopus Deploy'
-    id: 'send-to-octopus'
-    entrypoint: ['curl']
-    args: ['-X', 'POST', '-H', 'X-Octopus-ApiKey: ${OCTOPUS_API_KEY}', '-H', 'Content-Type: application/json', '-d', '{"Version": "${VERSION_NUMBER}", "ReleaseNotes": "${RELEASE_NOTES}", "ProjectId": "${OCTOPUS_PROJECT_ID}", "ProjectName": "${OCTOPUS_PROJECT_NAME}"}', 'https://your-octopus-url/api/releases']
-    env:
-      OCTOPUS_API_KEY: 'API-FURAOUECZ3M6VELG044KJRRZB9VFYPB'
-      VERSION_NUMBER: '2021.1.19'
-      RELEASE_NOTES: 'Release notes for version 2021.1.19'
-      OCTOPUS_PROJECT_ID: 'Projects-2'
-      OCTOPUS_PROJECT_NAME: 'Hello World'
+ - name: 'gcr.io/projects-2/octopus-cli:latest'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - 'octo authenticate --server https://wrushu.octopus.app --apiKey API-FURAOUECZ3M6VELG044KJRRZB9VFYPB'
+
 
